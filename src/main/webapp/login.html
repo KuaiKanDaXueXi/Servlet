@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        *{
+            margin: 0;
+            font-family: "yahei";
+            user-select: none;
+        }
+        .body_box{
+            background: linear-gradient(to bottom right,rgb(4,45,108),rgb(4,18,46),rgb(4,13,33),rgb(6,14,34),rgb(82, 38, 83));
+            width: 1745px;
+            height: 875px;
+            position: absolute;
+        }
+        .title{
+            color: white;
+            font-family: Segoe 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: -2px;
+            text-align: center;
+            font-weight:bolder;
+            font-size: 80px;
+            line-height: 1.5;
+            margin-top: 7%;
+        }
+        .login_box{
+            border-radius: 10px;
+            background-color: rgba(255,255,255, 0.7);
+            color: black;
+            /* font-weight: 600; */
+            width: 30%;
+            height: 300px;
+            margin: auto;
+            margin-top: 6%;
+            overflow: hidden;
+        }
+        .forget{
+            color: rgb(68, 68, 253);
+            text-decoration: none;
+            font-size: 13px;
+            position: relative;
+            left: 20px;
+        }
+        .forget:hover{
+            color: rgb(27, 1, 173);
+            text-decoration: underline;
+            transition-duration: 1s;
+        }
+        .form_box{
+            width: 80%;
+            height: 300px;
+            margin-left: 145px;
+        }
+        .btn{
+            width: 100px;
+            height: 30px;
+            border: 0px;
+            border-radius: 4px;
+            color: rgb(255, 255, 255);
+            line-height: inherit;
+            font-size: large;
+            /* font-weight: 600; */
+            background: rgb(51,180,87);
+        }
+        .yanzheng{
+            margin-left: 10px;
+            font-size: 14px;
+            font-family: "楷体";
+            font-weight: 700;
+        }
+        .btn:hover{
+            background-color: rgb(35, 138, 60);
+            transition-duration: 0.5s;
+        }
+    </style>
+    <title>SignIn</title>
+</head>
+<body onload="search()">
+    <div class="body_box">
+        <div class="title">Where the world builds software?</div>
+        <div class="login_box">
+                <form action="Touzi.html" method="get">
+                    <div class="form_box">
+                        用 户 名：<input id="username" style="margin-top: 80px;margin-bottom: 20px;border: 0px;border-radius: 2px;" type="text" name="username" onfocusout="userCheck()"><span class="yanzheng" id="user"></span><br><br>
+                        密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：<input id="password" style="margin-bottom: 20px;border: 0px;border-radius: 2px;" type="password" name="password" onfocusout="passCheck()"><span class="yanzheng" id="pass"></span><br><br>
+                        <input id="submit" style="margin-right: 20px;" type="submit" value="提  交" class="btn" onclick="return check()"><input type="reset" value="重  置"  class="btn"><a href="#" class="forget">忘记密码？</a>
+                    </div>
+                </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+		var username
+		var password
+		function search() {
+			let cookies = document.cookie;
+			if(cookies.indexOf(username)>=0){
+				username = cookies.substring(cookies.indexOf('username')+9,cookies.indexOf(';password'));
+				password = cookies.substring(cookies.indexOf('password')+9,cookies.indexOf(';',cookies.indexOf('password')));
+				alert(username);
+				alert(password);
+			}
+			
+		}
+        function userCheck(){	
+            var ret = false;
+            var zhengze = /^[a-zA-Z0-9]{4,6}$/;
+            username = document.getElementById('username').value;
+            var b = document.getElementById('user');
+            if (username==="") {
+                b.style.color="red";
+                b.innerText = "请输入用户名！";
+            } else if(zhengze.test(username)){
+                b.style.color="green";
+                b.innerText = "√";
+                ret = true;
+            } else{
+                b.style.color="red";
+                b.innerText = "×按照规则输入用户名";
+            }
+            return ret;
+        }
+        function passCheck(){
+            var ret = false;
+            var zhengze = /^[a-zA-Z0-9]{4,6}$/;
+            password = document.getElementById('password').value;
+            var b = document.getElementById('pass');
+            if (password==="") {
+                b.style.color="red";
+                b.innerText = "请输入用户名！";
+            } else if(zhengze.test(password)){
+                b.style.color="green";
+                b.innerText = "√";
+                ret = true;
+            } else{
+                b.style.color="red";
+                b.innerText = "×按照规则输入用户名";
+            }
+            return ret;
+        }
+        function check(){
+            var ret = false;
+            var a = userCheck();
+            console.log(a);
+            var b = passCheck();
+            console.log(b);
+            if(userCheck()&&passCheck()){
+				username = document.getElementById('username').value;
+				password = document.getElementById('password').value;
+				document.cookie = 'username='+username+';password='+password+';expires='+new Date.setTime(new Date.getTime()+6*60*1000);
+				let cookies = document.cookie;
+				alert(cookies);
+                ret = false;
+            }
+            return ret;
+        }
+    </script>
+</body>
+</html>ert
