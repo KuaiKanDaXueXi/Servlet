@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+/**
+ * @author Xian
+ */
 @WebServlet("/code")
 public class CheckCodeServlet extends HttpServlet {
     int wide = 100;
