@@ -1,5 +1,7 @@
 package com.xian.servlet;
 
+import com.xian.utils.DownloadUtils;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -29,6 +31,11 @@ public class DownloadServlet extends HttpServlet {
         String type = context.getMimeType(filename);
         resp.setContentType(type);
         //2.设置响应头打开方式：
+        //解决中文文件问题
+        //获取user-agent请求头
+        String agent = req.getHeader("user-agent");
+        //使用工具类方法编码文件名即可
+        filename = DownloadUtils.getFileName(agent, filename);
         resp.setHeader("content-disposition","attachment;filename="+filename);
         //将输入流的数据写入到输出流中
         ServletOutputStream sos = resp.getOutputStream();
