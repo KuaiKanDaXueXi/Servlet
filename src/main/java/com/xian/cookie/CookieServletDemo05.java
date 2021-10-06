@@ -18,11 +18,10 @@ public class CookieServletDemo05 extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         boolean ret = true;
         Cookie[] cookies = req.getCookies();
-        String lastTime = "";
         String time = URLEncoder.encode(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(System.currentTimeMillis())));
         for (Cookie cookie : cookies) {
             if ("lastTime".equals(cookie.getName())) {
-                lastTime = cookie.getValue();
+                req.setAttribute("lastTime",cookie.getValue());
                 cookie.setValue(time);
                 cookie.setMaxAge(60 * 60);
                 resp.addCookie(cookie);
@@ -33,8 +32,6 @@ public class CookieServletDemo05 extends HttpServlet {
         if (ret) {
             req.setAttribute("firstTime","true");
             resp.addCookie(new Cookie("lastTime",time));
-        } else {
-            req.setAttribute("lastTime",lastTime);
         }
         req.getRequestDispatcher("/visited.jsp").forward(req,resp);
     }
